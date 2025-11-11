@@ -1,9 +1,9 @@
-output "resource_id" {
-  description = "The ID of the null resource"
-  value       = null_resource.test.id
+output "random_value" {
+  description = "The random hex value generated"
+  value       = random_id.test.hex
 }
 
 output "timestamp" {
-  description = "The timestamp when the resource was created"
-  value       = null_resource.test.triggers.timestamp
+  description = "The timestamp when the sleep completed"
+  value       = time_sleep.wait.id
 }

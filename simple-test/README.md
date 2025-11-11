@@ -1,23 +1,24 @@
 # Simple Test Module
 
-This is a minimal Terraform module used for E2E testing of the Crossplane Remediation Controller.
+A minimal Terraform module for testing Crossplane provider-terraform Workspace functionality.
 
 ## Purpose
 
-This module creates a simple `null_resource` that:
+This module provides a simple test case that:
 - Has no external dependencies
 - Requires no cloud credentials
-- Can be used to test Crossplane provider-terraform Workspace functionality
-- Mimics production smoke test environments that use local Git sources
+- Uses only the time and random providers
+- Can be used for integration testing
 
 ## Resources Created
 
-- `null_resource.test` - A simple resource with a timestamp trigger
+- `random_id.test` - Generates a random 8-byte hex value
+- `time_sleep.wait` - Waits for 45 seconds during resource creation
 
 ## Outputs
 
-- `resource_id` - The ID of the null resource
-- `timestamp` - The timestamp when the resource was created
+- `random_value` - The random hex value generated
+- `timestamp` - The timestamp when the sleep completed
 
 ## Usage with Crossplane
 
@@ -29,13 +30,13 @@ metadata:
 spec:
   forProvider:
     source: Remote
-    module: https://github.com/your-org/crossplane-remediation-controller//test-modules/simple-test
+    module: git::https://github.com/dtclxy64/terraform-test-modules.git//simple-test
 ```
 
 ## Local Testing
 
 ```bash
-cd test-modules/simple-test
+cd simple-test
 terraform init
 terraform plan
 terraform apply
